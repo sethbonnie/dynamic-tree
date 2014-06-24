@@ -1,0 +1,21 @@
+{
+  "name": "dynamic-tree",
+  "version": "0.0.1",
+  "authors": [
+    "Seth Bonnie <sethkbonnie@gmail.com>"
+  ],
+  "description": "Dynamic hierarchy layouts using AngularJS and ReactJS",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "github.com/sethbonnie/dynamic-tree",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "angular": "~1.2.18",
+    "react": "~0.10.0"
+  }
+}
