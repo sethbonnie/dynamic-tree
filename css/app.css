@@ -7,6 +7,137 @@
 
 html, body {
   height: 100%;
-  width: 100%;
   margin: 0;
+}
+
+#container {
+  height: 100%;
+  overflow-x: scroll;
+  text-align: center;
+}
+
+.tree {
+  position: relative;
+  margin: 0px 10px;
+  display: inline-block;
+}
+
+.tree .ancestry-link {
+  height: 20px;
+}
+
+.ancestry-link .left-horizontal {
+  background-color: black;
+}
+.ancestry-link .right-horizontal {
+  background-color: black;
+}
+.ancestry-link .mid-vertical {
+  background-color: black;
+  margin: 0px auto;
+}
+
+.tree.root .ancestry-link {
+  display: none;
+}
+
+.tree.only-child .ancestry-link,
+.tree.first-child .ancestry-link,
+.tree.last-child .ancestry-link,
+.tree.middle-child .ancestry-link {
+  display: block;
+}
+.tree.only-child > .ancestry-link .left-horizontal,
+.tree.only-child > .ancestry-link .right-horizontal {
+  display: none;
+}
+.tree.only-child > .ancestry-link .mid-vertical {
+  display: block;
+  height: 100%;
+  width: 4px;
+  background-color: black;
+  margin: 0 auto;
+}
+
+.tree.first-child > .ancestry-link .left-horizontal {
+  display: none;
+}
+.tree.first-child > .ancestry-link .right-horizontal {
+  float: right;
+  display: block;
+  width: calc(50% + 10px);
+  height: 4px;
+  margin-right: -10px;
+}
+.tree.first-child > .ancestry-link .mid-vertical {
+  display: block;
+  height: 100%;
+  width: 4px;
+}
+
+.tree.last-child > .ancestry-link .left-horizontal {
+  float: left;
+  display: block;
+  width: calc(50% + 10px);
+  height: 4px;
+  margin-left: -10px;
+}
+.tree.last-child > .ancestry-link .right-horizontal {
+  display: none;
+}
+.tree.last-child > .ancestry-link .mid-vertical {
+  display: block;
+  height: 100%;
+  width: 4px;
+}
+
+
+.tree.middle-child > .ancestry-link .left-horizontal {
+  float: left;
+  display: block;
+  width: calc(50% + 10px);
+  height: 4px;
+  margin-left: -10px;
+}
+.tree.middle-child > .ancestry-link .right-horizontal {
+  float: right;
+  display: block;
+  width: calc(50% + 10px);
+  height: 4px;
+  margin-right: -10px;
+}
+.tree.middle-child > .ancestry-link .mid-vertical {
+  display: block;
+  height: 100%;
+  width: 4px;
+}
+
+
+.tree .node {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto;
+  border: 1px solid #555;
+  padding: 12px;
+  text-align: center;
+}
+
+.tree .offspring-link {
+  display: block;
+  height: 20px;
+  width: 4px;
+  background-color: black;
+  margin: 0 auto;
+}
+
+.tree .offspring-link.hide {
+  display: none;
+}
+
+.children {
+}
+
+.children .tree {
+  position: relative;
+  float: left;
 }
