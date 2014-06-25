@@ -86,6 +86,8 @@ app.factory('TreeService', function() {
     isRoot: function(id) {
       var node = tree[id];
 
+      if (!node) return null;
+
       if (node.parent_id === null) {
         return true;
       }
