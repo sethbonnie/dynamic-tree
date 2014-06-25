@@ -1,4 +1,4 @@
-app.factory('Tree', function() {
+app.factory('TreeService', function() {
   var tree = {}
     , next_id = 0;
 

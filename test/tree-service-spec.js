@@ -4,7 +4,7 @@ describe('Test Service', function() {
   beforeEach(module('dynamic-tree'))
 
   beforeEach(inject(function($injector) {
-    Tree = $injector.get('Tree');
+    Tree = $injector.get('TreeService');
   }))
 
   describe('.new()', function() {
