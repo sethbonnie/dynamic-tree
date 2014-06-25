@@ -4,33 +4,89 @@ function(TreeService) {
   var div = React.DOM.div;
 
   var Tree = React.createClass({
-    render: function() {
-      var node = TreeService.getNode(this.props.id)
-        , type;
+    getInitialState: function() {
+      return {
+        node: TreeService.getNode(this.props.id)
+      }
+    },
 
-      // figure out
-      if (TreeService.isRoot(node.id)) {
-        type = '';
+    handleMouseDown: function(e) {
+      if (e.button === 0) {
+        TreeService.addNode(this.props.id)
+        this.setState({node: this.state.node})
       }
-      else if (TreeService.isOnlyChild(node.id)) {
-        type = 'only-child'
+      else if (e.button === 1) {
+        console.log(this.state.node.children)
       }
-      else if (TreeService.isFirstChild(node.id)) {
-        type = 'first-child'
+      else if (e.button === 2) {
+        /** When we delete the root, immediately replace it with
+            a new root. Essentially resetting the tree.
+          **/
+        if (this.state.node.id == 0) {
+          this.setState({node: TreeService.new()})
+        }
+        else {
+          /** Delete the node, but once we do, we want its parent
+              to rerender. So we have to explicitly access the parent.
+            **/
+          var parent = TreeService.getNode(this.state.node.parent_id)
+          TreeService.deleteNode(this.props.id)
+          this._owner.setState({node: parent});
+        }
       }
-      else if (TreeService.isLastChild(node.id)) {
-        type = 'last-child'
+      e.preventDefault();
+      /** Especially important to not bubble up **/
+      e.stopPropagation();
+    },
+
+    ignoreContextMenu: function(e) {
+      e.preventDefault()
+      e.stopPropagation()
+    },
+
+    render: function() {
+      var tree_type;
+
+      if (TreeService.isRoot(this.props.id)) {
+        console.log('rendering');
       }
-      else {
-        type = 'middle-child'
+
+      if (TreeService.isRoot(this.props.id)) {
+        tree_type = 'root';
+      }
+      else if (TreeService.isOnlyChild(this.props.id)) {
+        tree_type = 'only-child'
+      }
+      else if (TreeService.isFirstChild(this.props.id)) {
+        tree_type = 'first-child'
+      }
+      else if (TreeService.isLastChild(this.props.id)) {
+        tree_type = 'last-child'
+      }
+      else if (TreeService.isMiddleChild(this.props.id)){
+        tree_type = 'middle-child'
+      }
+
+      var children = TreeService.getNode(this.props.id).children
+        , child_nodes = []
+        , id;
+
+      for (var i = 0; i < children.length; i++) {
+        id = children[i];
+        child_nodes.push(Tree({id: id}));
       }
 
       return (
-        div({className: 'tree'},
-          AncestryLink({show: TreeService.isRoot(node.id)}),
-          div({className: 'body'}, node.id.toString()),
-          OffspringLink({show: (node.children.length > 0)}),
-          Children({children: node.children})
+        div({ className: 'tree ' + tree_type,
+              onMouseDown: this.handleMouseDown,
+              onContextMenu: this.ignoreContextMenu
+            },
+          AncestryLink({}),
+          div({className: 'node'}, this.props.id),
+          OffspringLink({show: (children.length > 0)}),
+          div({className: 'children'},
+            child_nodes
+          )
         )
       )
     }
@@ -38,16 +94,12 @@ function(TreeService) {
 
   var AncestryLink = React.createClass({
     render: function() {
-      if (this.props.show == true) {
-        return (
-          div({className: 'ancestry-link'})
-        )
-      }
-      else {
-        return (
-          div({className: 'ancestry-link hide'})
-        )
-      }
+      return (
+        div({className: 'ancestry-link'},
+          div({className: 'left-horizontal'}),
+          div({className: 'right-horizontal'}),
+          div({className: 'mid-vertical'}))
+      )
     }
   })
 
@@ -67,13 +119,19 @@ function(TreeService) {
   })
 
   var Children = React.createClass({
+    getInitialState: function() {
+      return {
+        children: TreeService.getNode(this.props.id).children
+      }
+    },
+
     render: function() {
       var children = []
         , id
         , i;
 
-      for (i = 0; i < this.props.children.length; i++) {
-        id = this.props.children[i];
+      for (i = 0; i < this.state.children.length; i++) {
+        id = this.state.children[i];
         children.push(Tree({id: id}));
       }
 
