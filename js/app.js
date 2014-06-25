@@ -1,7 +1,7 @@
 var app = angular.module('dynamic-tree', []);
 
 app.controller('MainCtrl', [
-  '$scope',
-function($scope) {
-
+  '$scope', 'TreeService', 
+function($scope, TreeService) {
+  $scope.root = TreeService.new();
 }]);
