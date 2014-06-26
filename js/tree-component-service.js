@@ -118,29 +118,5 @@ function(TreeService) {
     }
   })
 
-  var Children = React.createClass({
-    getInitialState: function() {
-      return {
-        children: TreeService.getNode(this.props.id).children
-      }
-    },
-
-    render: function() {
-      var children = []
-        , id
-        , i;
-
-      for (i = 0; i < this.state.children.length; i++) {
-        id = this.state.children[i];
-        children.push(Tree({id: id}));
-      }
-
-      return (
-        div({className: 'children'},
-          children)
-      )
-    }
-  })
-
   return Tree;
 }]);
