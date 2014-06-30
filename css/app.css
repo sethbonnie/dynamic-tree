@@ -128,6 +128,9 @@ html, body {
   padding: 12px;
   text-align: center;
 }
+.tree .node:hover {
+  cursor: pointer;
+}
 
 .tree .offspring-link {
   display: block;
