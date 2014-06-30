@@ -1,6 +1,6 @@
 # Dynamic Trees
 
-A demo of creating dynamic tree hierarchies using AngularJS and React.
+A [demo of creating dynamic tree hierarchies](sethbonnie.github.io/dynamic-tree) using AngularJS and React.
 
 The theory behind it is that a node will have the following structure
 
