@@ -16,6 +16,13 @@ html, body {
   text-align: center;
 }
 
+#instructions {
+  max-width: 400px;
+  margin: 0 auto 20px;
+  list-style-type: none;
+  font-style: italic;
+}
+
 .tree {
   position: relative;
   margin: 0px 10px;

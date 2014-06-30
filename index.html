@@ -8,6 +8,12 @@
 
 <body>
   <div id="container" ng-controller="MainCtrl">
+    <h2>Dynamic Tree Hierarchies</h2>
+    <ul id="instructions">
+      <li>Left-click on a node to add children</li>
+      <li>Right-click on a node to delete it and its descendants</li>
+      <li>Right-click the root node to reset the tree</li>
+    </ul>
     <tree root="{{root.id}}"></tree>
   </div>
 
